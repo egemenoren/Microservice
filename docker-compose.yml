@@ -1,0 +1,11 @@
+version: '3.4'
+
+services:
+  sourcingdb:
+    image: mongo
+
+  projectms.products:
+    image: ${DOCKER_REGISTRY-}projectmsproducts
+    build:
+      context: .
+      dockerfile: ProjectMS.Products/Dockerfile
