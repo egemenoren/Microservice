@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ProjectMS.Sourcing.Entities
 {
-    public class Bid
+    public class Bids
     {
         [BsonId]
         [BsonRepresentation(BsonType.ObjectId)]
