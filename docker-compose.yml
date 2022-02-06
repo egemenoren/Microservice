@@ -3,9 +3,19 @@ version: '3.4'
 services:
   sourcingdb:
     image: mongo
+  
+  rabbitmq:
+    image: rabbitmq:3-management
 
   projectms.products:
     image: ${DOCKER_REGISTRY-}projectmsproducts
     build:
       context: .
       dockerfile: ProjectMS.Products/Dockerfile
+
+  projectms.sourcing:
+    image: ${DOCKER_REGISTRY-}projectmssourcing
+    build:
+      context: .
+      dockerfile: ProjectMS.Sourcing/Dockerfile
+

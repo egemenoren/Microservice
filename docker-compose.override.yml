@@ -9,6 +9,14 @@ services:
     ports:
       - "27017:27017"
 
+  rabbitmq:
+    container_name: rabbitmq
+    restart: always
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+
+
   projectms.products:
     container_name: projectmsproducts
     environment:
@@ -21,3 +29,19 @@ services:
     volumes:
       - ${HOME}/ASP.NET/Https:/root/.aspnet/https/
       - ${HOME}/.microsoft/usersecrets/:/root/.microsoft/usersecrets
+
+  projectms.sourcing:
+    container_name: projectmssourcing
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - "SourcingDatabaseSettings:ConnectionString=mongodb://sourcingdb:27017"
+      - "EventBus:HostName=rabbitmq"
+    depends_on:
+      - sourcingdb
+      - rabbitmq
+    ports:
+      - "8001:80"
+    volumes:
+      - ${HOME}/ASP.NET/Https:/root/.aspnet/https/
+      - ${HOME}/.microsoft/usersecrets/:/root/.microsoft/usersecrets 
+
